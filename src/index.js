@@ -19,17 +19,28 @@ const resolvers = {
   },
   Mutation: {
     post: (parent, args) => {
-      
       let idCount = links.length;
 
       const link = {
         id: `link-${idCount}`,
         description: args.description,
-        url: args.url,
+        url: args.url
       };
       links.push(link);
       return link;
     },
+    updateLink: (parent, args) => {
+      let linkIndex;
+
+      links.forEach((l, index) => {
+        if (l.id === args.id) linkIndex = index;
+      });
+
+      links[linkIndex].url = args.url;
+      links[linkIndex].description = args.description;
+
+      return links[linkIndex];
+    }
   }
 };
 
