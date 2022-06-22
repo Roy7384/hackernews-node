@@ -1,17 +1,6 @@
 const { ApolloServer } = require("apollo-server");
-// schema
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link!]!
-  }
-
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`;
+const fs = require('fs');
+const path = require('path');
 
 // in memory mock data
 let links = [
@@ -37,7 +26,10 @@ const resolvers = {
 
 // config apollo server
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: fs.readFileSync(
+    path.join(__dirname, 'schema.graphql'),
+    'utf8'
+  ),
   resolvers
 });
 
