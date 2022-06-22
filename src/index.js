@@ -40,6 +40,21 @@ const resolvers = {
       links[linkIndex].description = args.description;
 
       return links[linkIndex];
+    },
+    deleteLink: (parent, args) => {
+      let newLinks = [];
+      let linkToBeDelete;
+
+      links.forEach(link => {
+        if (link.id === args.id) {
+          linkToBeDelete = link;
+          return;
+        }
+        newLinks.push(link);
+      });
+
+      links = newLinks;
+      return linkToBeDelete;
     }
   }
 };
