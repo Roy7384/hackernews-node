@@ -15,7 +15,16 @@ let links = [
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    feed: () => links
+    feed: () => links,
+    link: (parent, args) => {
+      let link = null;
+
+      links.forEach(l => {
+        if (l.id === args.id) link = l;
+      });
+     
+      return link;
+    }
   },
   Mutation: {
     post: (parent, args) => {
