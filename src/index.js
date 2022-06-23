@@ -22,6 +22,8 @@ const resolvers = {
       });
       return newLink;
     },
+    // To do: refactor to use prisma client
+
     // updateLink: (parent, args) => {
     //   let linkIndex;
 
