@@ -37,8 +37,50 @@ async function login(parent, args, context, info) {
   };
 }
 
+async function post(parent, args, context, info) {
+  const { userId } = context;
+  return await context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: { connect: { id: userId } }
+    }
+  });
+}
+
+
+// To do: refactor to use prisma client
+
+// updateLink: (parent, args) => {
+//   let linkIndex;
+
+//   links.forEach((l, index) => {
+//     if (l.id === args.id) linkIndex = index;
+//   });
+
+//   links[linkIndex].url = args.url;
+//   links[linkIndex].description = args.description;
+
+//   return links[linkIndex];
+// },
+// deleteLink: (parent, args) => {
+//   let newLinks = [];
+//   let linkToBeDelete;
+
+//   links.forEach(link => {
+//     if (link.id === args.id) {
+//       linkToBeDelete = link;
+//       return;
+//     }
+//     newLinks.push(link);
+//   });
+
+//   links = newLinks;
+//   return linkToBeDelete;
+// }
+
 module.exports = {
   signup,
-  login
-  // post,
+  login,
+  post
 };
