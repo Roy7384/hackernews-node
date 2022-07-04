@@ -26,10 +26,11 @@ model User {
   email String @unique
   password String
   links Link[]
+  votes Vote[]
 }
 
 model Vote {
-  id Int @id @default(autoincrement)
+  id Int @id @default(autoincrement())
   link Link @relation(fields: [linkId], references: [id])
   linkId Int
   user User @relation(fields: [userId], references: [id])
