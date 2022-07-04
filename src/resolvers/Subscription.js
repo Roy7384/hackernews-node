@@ -15,7 +15,7 @@ function newVoteSubscribe(parent, args, context, info) {
 
 const newVote = {
   subscribe: newVoteSubscribe,
-  resovle: payload => {
+  resolve: payload => {
     return payload;
   }
 };
