@@ -74,6 +74,8 @@ async function vote(parent, args, context, info) {
     }
   });
   context.pubsub.publish("NEW_VOTE", newVote);
+  
+  return newVote;
 }
 
 // To do: refactor to use prisma client
