@@ -1,4 +1,4 @@
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer, PubSub } = require("apollo-server");
 const { PrismaClient } = require("@prisma/client");
 
 const fs = require("fs");
@@ -22,6 +22,10 @@ const resolvers = {
 // config apollo server
 const prisma = new PrismaClient();
 
+// setting up PubSub
+const pubsub = new PubSub();
+
+// setting up apollo server
 const server = new ApolloServer({
   typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
   resolvers,
@@ -29,6 +33,7 @@ const server = new ApolloServer({
     return {
       ...req,
       prisma,
+      pubsub,
       userId: req && req.headers.authorization ? getUserId(req) : null
     };
   }
